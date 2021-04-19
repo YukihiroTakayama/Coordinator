@@ -53,13 +53,23 @@ export default {
     // Doc: https://axios.nuxtjs.org/usage
     'bootstrap-vue/nuxt',
     '@nuxtjs/axios',
-    'vue-scrollto/nuxt'
+    'vue-scrollto/nuxt',
+    '@nuxtjs/proxy'
   ],
   /*
   ** Axios module configuration
   ** See https://axios.nuxtjs.org/options
   */
   axios: {
+    proxy: true,
+  },
+  proxy: {
+    '/api': {
+      target: 'http://backend:3000',
+      pathRewrite: {
+        '^/api': '/api'
+      }
+    },
   },
   generate: {
     fallback: true
