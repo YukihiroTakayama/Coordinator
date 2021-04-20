@@ -24,7 +24,7 @@
               <ul class="onhover-show-div">
                 <li>
                   <a v-if="isLogin" @click="logout"> Logout </a>
-                  <nuxt-link v-if="!isLogin" :to="{ path: '/page/account/login-firebase' }">Login</nuxt-link>
+                  <nuxt-link v-if="!isLogin" :to="{ path: '/page/account/login' }">Login</nuxt-link>
                 </li>
                 <li>
                   <nuxt-link :to="{ path: '/page/account/dashboard' }">Dashboard</nuxt-link>
@@ -49,15 +49,12 @@ export default {
   },
   created() {
     if (process.client) {
-      this.isLogin = localStorage.getItem('userlogin')
+      this.isLogin = this.$auth.loggedIn
     }
   },
   methods: {
     logout: function () {
-      firebase.auth().signOut().then(() => {
-        UserAuth.Logout()
-        this.$router.replace('/page/account/login-firebase')
-      })
+      this.$auth.logout()
     }
   }
 }

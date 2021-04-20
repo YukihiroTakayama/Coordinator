@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "@inotom/vue-go-top": "^1.1.0",
+    "@nuxtjs/auth": "^4.9.1",
     "@nuxtjs/axios": "^5.5.4",
     "@nuxtjs/bootstrap-vue": "^2.0.4",
     "@nuxtjs/proxy": "^2.1.0",

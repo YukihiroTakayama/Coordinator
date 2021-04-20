@@ -54,7 +54,8 @@ export default {
     'bootstrap-vue/nuxt',
     '@nuxtjs/axios',
     'vue-scrollto/nuxt',
-    '@nuxtjs/proxy'
+    '@nuxtjs/proxy',
+    '@nuxtjs/auth'
   ],
   /*
   ** Axios module configuration
@@ -70,6 +71,23 @@ export default {
         '^/api': '/api'
       }
     },
+  },
+  auth: {
+    redirect: {
+      login: '/page/account/login',
+      logout: '/',
+      callback: false,
+      home: '/page/account/dashboard',
+    },
+    strategies: {
+      local: {
+        endpoints: {
+          login: { url: '/api/v1/auth/sign_in', method: 'post', propertyName: 'token' },
+          logout: { url: '/api/v1/auth/sign_out', method: 'delete' },
+          user: false,
+        },
+      }
+    }
   },
   generate: {
     fallback: true
