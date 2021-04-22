@@ -7,13 +7,32 @@
         <div class="container">
           <div class="row">
             <div class="col-lg-3">
+              <section class="search-block">
+              <div class="container">
+                <div class="row">
+                  <div class="col-lg-6 offset-lg-3">
+                    <form class="form-header">
+                      <div class="input-group">
+                        <input
+                                type="text"
+                                class="form-control"
+                                v-model="searchString"
+                                v-on:keyup="searchProduct"
+                                placeholder="Search Products....."
+                              >
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </section>
               <sidebar @allFilters="allfilter" @priceVal="pricefilterArray" @categoryfilter="getCategoryFilter" />
             </div>
             <div class="collection-content col">
               <div class="page-main-content">
                 <div class="row">
                   <div class="col-sm-12">
-                    <div class="top-banner-wrapper">
+                    <!-- <div class="top-banner-wrapper">
                       <a href="#">
                         <img
                           :src='"@/assets/images/mega-menu/2.jpg"'
@@ -26,7 +45,7 @@
                         <h5>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</h5>
                         <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
                       </div>
-                    </div>
+                    </div> -->
                     <ul class="product-filter-tags">
                       <li
                       class="mr-1"
