@@ -7,25 +7,6 @@
         <div class="container">
           <div class="row">
             <div class="col-lg-3">
-              <section class="search-block">
-              <div class="container">
-                <div class="row">
-                  <div class="col-lg-6 offset-lg-3">
-                    <form class="form-header">
-                      <div class="input-group">
-                        <input
-                                type="text"
-                                class="form-control"
-                                v-model="searchString"
-                                v-on:keyup="searchProduct"
-                                placeholder="Search Products....."
-                              >
-                      </div>
-                    </form>
-                  </div>
-                </div>
-              </div>
-            </section>
               <sidebar @allFilters="allfilter" @priceVal="pricefilterArray" @categoryfilter="getCategoryFilter" />
             </div>
             <div class="collection-content col">

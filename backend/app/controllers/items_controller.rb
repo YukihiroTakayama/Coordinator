@@ -1,6 +1,7 @@
-class Api::V1::ItemsController < ApplicationController
+class ItemsController < ApplicationController
   def index
     items = RakutenWebService::Ichiba::Item.search(search_params)
+    render json: items
   end
 
   def search_params
