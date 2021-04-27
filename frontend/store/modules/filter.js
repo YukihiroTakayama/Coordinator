@@ -1,4 +1,5 @@
 import products from '../../data/products'
+import axios from 'axios'
 
 const state = {
   productslist: products.data,
@@ -12,7 +13,9 @@ const state = {
 // getters
 const getters = {
   filterbyCategory: (state) => {
-    const category = [...new Set(state.products.map(product => product.type))]
+    // const category = [...new Set(state.products.map(product => product.type))]
+    // TODO: awaitが機能しない
+    const category = fetchCategory()
     return category
   },
   filterbyBrand: (state) => {
@@ -148,4 +151,11 @@ export default {
   getters,
   actions,
   mutations
+}
+
+async function fetchCategory() {
+  const category = await axios.get('/api/v1/genres').then(function(response) {
+    return response.data
+  })
+  return category
 }
