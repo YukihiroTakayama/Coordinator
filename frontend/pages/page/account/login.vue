@@ -69,7 +69,6 @@ import Header from '../../../components/header/header1'
 import Footer from '../../../components/footer/footer1'
 import Breadcrumbs from '../../../components/widgets/breadcrumbs'
 export default {
-  auth: true,
   components: {
     Header,
     Footer,
@@ -86,27 +85,9 @@ export default {
     }
   },
   methods: {
-    async onSubmit() {
-      await this.$auth
-        .loginWith('local', {
-          data: {
-            email: this.email,
-            password: this.password,
-          },
-        })
-        .then(
-          (response) => {
-            localStorage.setItem('access-token', response.headers['access-token'])
-            localStorage.setItem('client', response.headers.client)
-            localStorage.setItem('uid', response.headers.uid)
-            localStorage.setItem('token-type', response.headers['token-type'])
-            return response
-          },
-          (error) => {
-            return error
-          }
-        )
-    },
+    onSubmit() {
+      console.log('Form has been submitted!')
+    }
   }
 }
 </script>

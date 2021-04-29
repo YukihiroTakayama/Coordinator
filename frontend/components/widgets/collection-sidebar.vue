@@ -10,17 +10,6 @@
         </div>
       </div>
       <div class="collection-filter" :class="{ 'openFilterbar' : filter }">
-      <div class="collection-filter-block">
-        <div class="input-group">
-          <input
-            type="text"
-            class="form-control"
-            v-model="searchString"
-            v-on:keyup="searchProduct"
-            placeholder="Search Products....."
-          >
-        </div>
-      </div>
      <div class="collection-filter-block">
       <!-- brand filter start -->
       <div class="collection-mobile-back">
