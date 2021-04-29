@@ -74,10 +74,10 @@ export default {
   },
   auth: {
     redirect: {
-      login: '/page/account/login',
+      login: '/account/login',
       logout: '/',
       callback: false,
-      home: '/page/account/dashboard',
+      home: '/account/dashboard',
     },
     strategies: {
       local: {
