@@ -7,7 +7,7 @@
         <span class="lable4" v-if="product.sale">on sale</span> -->
       </div>
       <div class="front">
-        <nuxt-link :to="{ path: '/item/' + product.itemCode }">
+        <a href="javascript:void(0);">
           <img
             :src="imageSrc"
             :id="product.code"
@@ -17,7 +17,7 @@
             height="128"
             style="max-height: 128px; max-width: 128px; margin-left: 25%;"
           />
-        </nuxt-link>
+        </a>
       </div>
       <ul class="product-thumb-list">
         <li
@@ -28,7 +28,7 @@
           @click="productVariantChange(image)"
         >
           <a href="javascript:void(0);">
-            <img :src="image" />
+            <img :src="image" height="40" width="40" />
           </a>
         </li>
       </ul>
@@ -38,9 +38,9 @@
         <i v-for="n of product.reviewAverage" :key="n" class="fa fa-star" style="color: #ffa200;"></i>
         <i v-for="n of (5 - product.reviewAverage)" :key="n" class="fa fa-star" style="color: #dddddd;"></i>
       </div>
-      <nuxt-link :to="{ path: '/item/' + product.itemCode }">
+      <a href="javascript:void(0);">
         <h6>{{ product.itemName }}</h6>
-      </nuxt-link>
+      </a>
       <!-- <p>{{ product.itemCaption }}</p> -->
       <h4>
         {{ '￥' + product.itemPrice }}
@@ -130,11 +130,11 @@ export default {
     },
     Color(variants) {
       const uniqColor = []
-      for (let i = 0; i < Object.keys(variants).length; i++) {
-        if (uniqColor.indexOf(variants[i].color) === -1) {
-          uniqColor.push(variants[i].color)
-        }
-      }
+      // for (let i = 0; i < Object.keys(variants).length; i++) {
+      //   if (uniqColor.indexOf(variants[i].color) === -1) {
+      //     uniqColor.push(variants[i].color)
+      //   }
+      // }
       return uniqColor
     },
     productColorchange(color, product) {

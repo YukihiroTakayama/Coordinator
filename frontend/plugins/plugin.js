@@ -8,6 +8,7 @@ import PayPal from 'vue-paypal-checkout'
 import VueLazyLoad from 'vue-lazyload'
 import ProductZoomer from 'vue-product-zoomer'
 import VueScrollTo from 'vue-scrollto'
+import VueLocalStorage from 'vue-localstorage'
 
 Vue.use(VueAwesomeSwiper)
 Vue.use(Vue2Filters)
@@ -17,6 +18,7 @@ Vue.component('paypal-checkout', PayPal)
 Vue.use(VueLazyLoad)
 Vue.use(ProductZoomer)
 Vue.use(VueScrollTo)
+Vue.use(VueLocalStorage)
 
 const config = {
   apiKey: 'YOUR_API_KEY',

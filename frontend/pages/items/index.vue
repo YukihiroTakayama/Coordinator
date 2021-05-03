@@ -1,7 +1,7 @@
 <template>
   <div>
-    <Header />
-    <Breadcrumbs title="collection" />
+    <!-- <Header />
+    <Breadcrumbs title="collection" /> -->
     <section class="section-b-space ratio_asos">
       <div class="collection-wrapper">
         <div class="container">
@@ -81,7 +81,7 @@
                       :key="index">
                       <a href="javascript:void(0)" class="filter_tag">{{tag}}<i class="ti-close" @click="removeTags(tag)"></i></a>
                       </li>
-                      <li class="clear_filter" v-if="allfilters.length > 0"><a href="javascript:void(0)" class="clear_filter" @click="removeAllTags()">Clear all</a></li>
+                      <!-- <li class="clear_filter" v-if="allfilters.length > 0"><a href="javascript:void(0)" class="clear_filter" @click="removeAllTags()">Clear all</a></li> -->
                     </ul>
                     <div class="collection-product-wrapper">
                       <div class="product-top-filter">
@@ -89,7 +89,7 @@
                           <div class="col-12">
                             <div class="product-filter-content">
                               <div class="search-count">
-                                <h5>Showing Products 1-12 of {{ items.length }} Result</h5>
+                                <!-- <h5>Showing Products 1-12 of {{ items.length }} Result</h5> -->
                               </div>
                               <div class="collection-view">
                                 <ul>
@@ -149,13 +149,13 @@
                       <div class="product-wrapper-grid" :class="{'list-view':listview == true}">
                         <div class="row">
                           <div class="col-sm-12">
-                            <div class="text-center section-t-space section-b-space" v-if="items.length == 0">
+                            <!-- <div class="text-center section-t-space section-b-space" v-if="items.length == 0">
                               <img :src='"@/assets/images/empty-search.jpg"' class="img-fluid" alt />
                               <h3 class="mt-3">Sorry! Couldn't find the product you were looking For!!!</h3>
                               <div class="col-12 mt-3">
                                   <nuxt-link :to="{ path: '/'}" class="btn btn-solid">continue shopping</nuxt-link>
                               </div>
-                            </div>
+                            </div> -->
                           </div>
                           <div
                           class="col-grid-box"
@@ -164,8 +164,8 @@
                           :key="index"
                           v-show="setPaginate(index)"
                           >
-                            <div class="product-box">
-                              <productBox1
+                            <div class="product-box" @click="clickItem(item.params.itemCode)">
+                              <productBox
                                 @opencartmodel="showCart"
                                 @showCompareModal="showCoampre"
                                 @openquickview="showQuickview"
@@ -178,7 +178,7 @@
                           </div>
                         </div>
                       </div>
-                      <div class="product-pagination mb-0" v-if="items.length > this.paginate">
+                      <!-- <div class="product-pagination mb-0" v-if="items.length > this.paginate">
                         <div class="theme-paggination-block">
                           <div class="row">
                             <div class="col-xl-6 col-md-6 col-sm-12">
@@ -215,7 +215,7 @@
                             </div>
                           </div>
                         </div>
-                      </div>
+                      </div> -->
                     </div>
                   </div>
                 </div>
@@ -236,12 +236,12 @@
     <quickviewModel :openModal="showquickviewmodel" :productData="quickviewproduct" />
     <compareModel :openCompare="showcomparemodal" :productData="comapreproduct" @closeCompare="closeCompareModal" />
     <cartModel :openCart="showcartmodal" :productData="cartproduct" @closeCart="closeCartModal" :products="items" />
-    <Footer />
+    <!-- <Footer /> -->
   </div>
 </template>
 <script>
 import { mapGetters } from 'vuex'
-import productBox1 from '../../components/product-box/product-box'
+import productBox from '../../components/product-box/product-box'
 import Header from '../../components/header/header1'
 import Footer from '../../components/footer/footer1'
 import Breadcrumbs from '../../components/widgets/breadcrumbs'
@@ -255,7 +255,7 @@ export default {
     Header,
     Footer,
     Breadcrumbs,
-    productBox1,
+    productBox,
     sidebar,
     quickviewModel,
     compareModel,
@@ -296,7 +296,6 @@ export default {
       search_params: {
         keyword: '',
         genre_id: 100433,
-        image_flag: 1
       }
     }
   },
@@ -370,7 +369,7 @@ export default {
       this.allfilters.splice(this.allfilters.indexOf(val), 1)
     },
     removeAllTags() {
-      this.allfilters.splice(0, this.allfilters.length)
+      // this.allfilters.splice(0, this.allfilters.length)
     },
     getCategoryFilter() {
       this.updatePaginate(1)
@@ -389,7 +388,7 @@ export default {
       this.updatePaginate(1)
     },
     getPaginate() {
-      this.paginates = Math.round(this.filterProduct.length / this.paginate)
+      // this.paginates = Math.round(this.filterProduct.length / this.paginate)
       this.pages = []
       for (let i = 0; i < this.paginates; i++) {
         this.pages.push(i + 1)
@@ -457,6 +456,10 @@ export default {
       }).then(response => {
         this.items = response.data
       })
+    },
+    clickItem(item_code) {
+      this.$emit('change', item_code)
+      this.$emit('close')
     }
   }
 }

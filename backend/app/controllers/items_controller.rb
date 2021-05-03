@@ -4,6 +4,11 @@ class ItemsController < ApplicationController
     render json: items
   end
 
+  def show
+    item = RakutenWebService::Ichiba::Item.search(item_code: params[:code]).first
+    render json: item
+  end
+
   def fetch_items
     RakutenWebService::Ichiba::Item.search(search_params)
   end
