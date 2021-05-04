@@ -4,7 +4,7 @@ class CoordinatesController < ApplicationController
 
   def show
     coordinate = Coordinate.find(params[:id])
-    render json: coordinate, include: [:parts, :images]
+    render json: coordinate, include: [:parts]
   end
 
   def update
@@ -12,6 +12,12 @@ class CoordinatesController < ApplicationController
     coordinate.attributes = coordinate_params
     coordinate.parts_attributes = parts_attributes_params
     coordinate.save!
+    if params[:blob_ids].present?
+      coordinate.images.purge
+      blobs = ActiveStorage::Blob.find(params[:blob_ids])
+      coordinate.images.attach(blobs)
+    end
+    render json: coordinate, include: [:parts]
   end
 
   private

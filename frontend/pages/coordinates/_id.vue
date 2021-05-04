@@ -59,7 +59,7 @@
                       >
                         <a href="javascript:void(0)">
                           <img
-                            :src="getImgUrl('1.jpg')"
+                            :src="image"
                             class="img-fluid bg-img"
                             @click="clickFileForm()"
                           />
@@ -79,7 +79,14 @@
                       </div>
                     </div>
                   </div>
-                  <input type="file" ref="file-input" style="display: none;">
+                  <input
+                    ref="file-input"
+                    type="file"
+                    multiple
+                    accept="image/*"
+                    @change="onChangeFiles"
+                    style="display: none;"
+                  >
                 </div>
                 <div class="col-lg-7 col-sm-10 col-xs-12">
                   <div class="page-title">
@@ -173,6 +180,7 @@ import relatedProduct from '../../components/widgets/related-products'
 import items from '../items/index'
 import axios from 'axios'
 import productBox from '../../components/product-box/product-box'
+import DirectUploader from '@/lib/DirectUploader'
 
 export default {
   components: {
@@ -182,7 +190,7 @@ export default {
     Timer,
     relatedProduct,
     items,
-    productBox
+    productBox,
   },
   data() {
     return {
@@ -207,11 +215,12 @@ export default {
       },
       coordinate: {
         parts: [],
-        images: []
+        images: [],
+        blob_ids: []
       },
       editFlag: false,
       items: [],
-      previewFlag: false
+      previewFlag: false,
     }
   },
   localStorage: {
@@ -327,12 +336,15 @@ export default {
         this.items.splice(index, 1, response.data)
       })
     },
-    updateCoordinate() {
-      axios.patch('/api/v1/coordinates/' + this.coordinate.id, this.coordinate).then(response => {
+    async updateCoordinate() {
+      try {
+        await this.$axios.$patch('/api/v1/coordinates/' + this.coordinate.id, this.coordinate)
         this.$localStorage.remove('coordinate')
         this.$localStorage.remove('items')
         this.editFlag = false
-      })
+      } catch (error) {
+        console.log(error)
+      }
     },
     editCoordinate() {
       this.$localStorage.set('coordinate', this.coordinate)
@@ -347,7 +359,37 @@ export default {
       this.$localStorage.remove('coordinate')
       this.$localStorage.remove('items')
       this.editFlag = false
-    }
+    },
+    onChangeFiles (event) {
+      let input = this.$refs['file-input']
+      this.uploadFiles(input.files)
+      input.value = null
+    },
+    uploadFiles (files) {
+      this.coordinate.images = []
+      this.coordinate.blob_ids = []
+      Array.from(files).forEach(file => this.uploadFile(file))
+    },
+    uploadFile (file) {
+      const url = 'http://localhost:3000/rails/active_storage/direct_uploads'
+      const directUploader = new DirectUploader(file, url, this._onUploadProgress.bind(this))
+      directUploader.upload(this._onUploadError.bind(this), this._onUploadSuccess.bind(this))
+    },
+    _onUploadError (error, directUploader) {
+      this.coordinate.images = []
+      this.coordinate.blob_ids = []
+      console.log(error)
+    },
+    _onUploadSuccess (blob, directUploader) {
+      const endpoint = 'http://localhost:3000/rails/active_storage/blobs/redirect/'
+      let signed_id = blob.signed_id
+      let filename = blob.filename
+      let image_url = endpoint + signed_id + '/' + filename
+      this.coordinate.images.push(image_url)
+      this.coordinate.blob_ids.push(blob.id)
+    },
+    _onUploadProgress (event, directUploader) {
+    },
   }
 }
 </script>
