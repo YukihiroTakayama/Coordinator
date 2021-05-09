@@ -14,6 +14,6 @@ class PartSerializer < ActiveModel::Serializer
   end
 
   def params
-    {}
+    nil
   end
 end
