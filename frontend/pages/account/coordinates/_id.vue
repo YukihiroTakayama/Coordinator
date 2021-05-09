@@ -3,6 +3,7 @@
     <Header />
     <Breadcrumbs />
     <!-- section start -->
+    <b-overlay :show="overlay" rounded="sm">
     <section>
     <div class="collection-wrapper">
         <div class="container">
@@ -20,11 +21,18 @@
               <div class="col-lg-7" style="text-align: right;">
                 <button
                   class="btn btn-solid btn-primary"
-                  title="Preview"
-                  @click="previewFlag = true"
-                  v-show="false"
-                  style="padding: 13px 29px; width: 120px;"
-                >Preview</button>
+                  title="Published"
+                  @click="coordinate.is_published = true; updateCoordinate()"
+                  v-if="!editFlag && !coordinate.is_published"
+                  style="padding: 13px 29px; width: 140px;"
+                >Public</button>
+                <button
+                  class="btn btn-solid btn-danger"
+                  title="Private"
+                  @click="coordinate.is_published = false; updateCoordinate()"
+                  v-if="!editFlag && coordinate.is_published"
+                  style="padding: 13px 29px; width: 140px;"
+                >Private</button>
                 <button
                   class="btn btn-solid btn-primary"
                   title="Edit"
@@ -92,21 +100,29 @@
                   <div class="page-title">
                     <h3>{{ 'ITEMS' }}</h3>
                   </div>
-                  <div class="product-wrapper-grid" :class="'list-view'">
-                    <div
-                    class="col-grid-box"
-                    :class="'col-lg-12'"
-                    v-for="(item, index) in items"
-                    :key="index"
-                    >
-                      <a v-show="editFlag" href="javascript:void(0)">
-                        <div class="product-box" style="margin-top: 50px;">
-                          <productBox
-                            :product="item.params"
-                            :index="index"
-                          />
+                  <div class="product-wrapper-grid swiper-container" :class="'list-view'" style="position: relative; overflow-y: scroll; max-height: 750px">
+                    <div class="text-center section-t-space section-b-space" v-if="coordinate.parts.length === 0">
+                      <b-spinner style="width: 3rem; height: 3rem;" label="Loading..."></b-spinner>
+                      <div><strong>Loading...</strong></div>
+                    </div>
+                    <draggable v-model="coordinate.parts" @end="draggableEnd" :scroll-sensitivity="200" :force-fallback="true" :options="{ animation: 300, handle: '.handle' }">
+                      <div
+                      class="col-grid-box"
+                      :class="'col-lg-12'"
+                      v-for="(item, index) in coordinate.parts"
+                      :key="index"
+                      v-if="!coordinate.parts[index].is_deleted && item.params"
+                      >
+                      <div v-show="editFlag">
+                        <div class="product-box">
+                            <productBox
+                              :product="item.params"
+                              :index="index"
+                              :class="'handle'"
+                              :style="'cursor: move;'"
+                            />
 
-                          <div style="display: block; align-self: center;">
+                          <div style="display: block; align-self: center; margin-left: auto;">
                             <button
                               class="btn btn-solid btn-success"
                               title="Change"
@@ -117,28 +133,46 @@
                             <button
                               class="btn btn-solid btn-danger"
                               title="Save"
-                              @click="editFlag = false"
+                              @click="coordinate.parts[index].is_deleted = true"
                               v-show="editFlag"
                               style="padding: 13px 29px; display: block; width: 100%;"
                             >Delete</button>
                           </div>
                         </div>
-                      </a>
-                      <a v-show="!editFlag" :href="item.params.affiliateUrl" target="_blank">
-                        <div class="product-box" style="margin-top: 50px;">
-                          <productBox
-                            :product="item.params"
-                            :index="index"
-                          />
-                        </div>
-                      </a>
-                      <b-modal :id="'items-modal-' + index" size="xl" title="アイテム一覧">
-                        <items @change="changeItem(index, $event)"
-                               @close="$bvModal.hide('items-modal-' + index);" />
-                      </b-modal>
-                    </div>
+                      </div>
+                        <a v-show="!editFlag" :href="item.params ? item.params.affiliateUrl : ''" target="_blank">
+                          <div class="product-box">
+                            <productBox
+                              :product="item.params"
+                              :index="index"
+                            />
+                          </div>
+                        </a>
+                        <b-modal :id="'items-modal-' + index" size="xl" title="アイテム一覧">
+                          <items @change="changeItem(index, $event)"
+                                 @close="$bvModal.hide('items-modal-' + index);" />
+                        </b-modal>
+                      </div>
+                    </draggable>
                   </div>
                 </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-5"></div>
+              <div class="col-lg-7" style="text-align: right;">
+                <button
+                  class="btn btn-solid btn-primary"
+                  title="Save"
+                  @click="addItem()"
+                  v-show="editFlag"
+                  style="padding: 13px 29px;"
+                  v-b-modal.add-item-modal
+                >Add Item</button>
+                <b-modal :id="'add-item-modal'" size="xl" title="アイテム一覧">
+                  <items @change="addItem($event)"
+                         @close="$bvModal.hide('add-item-modal');" />
+                </b-modal>
+              </div>
             </div>
         </div>
     </div>
@@ -166,21 +200,22 @@
       </div>
               </section>
     <!-- Section ends -->
-    <relatedProduct :productTYpe="productTYpe" :productId="productId" v-show="previewFlag" />
+    </b-overlay>
+    <relatedProduct :productTYpe="productTYpe" :productId="productId" />
     <Footer />
   </div>
 </template>
 <script>
 import { mapState, mapGetters } from 'vuex'
-import Header from '../../components/header/header1'
-import Footer from '../../components/footer/footer'
-import Breadcrumbs from '../../components/widgets/breadcrumbs'
-import Timer from '../../components/widgets/timer'
-import relatedProduct from '../../components/widgets/related-products'
-import items from '../items/index'
-import axios from 'axios'
-import productBox from '../../components/product-box/product-box'
+import Header from '../../../components/header/header1'
+import Footer from '../../../components/footer/footer'
+import Breadcrumbs from '../../../components/widgets/breadcrumbs'
+import Timer from '../../../components/widgets/timer'
+import relatedProduct from '../../../components/widgets/related-products'
+import items from '../../items/index'
+import productBox from '../../../components/product-box/product-box'
 import DirectUploader from '@/lib/DirectUploader'
+import draggable from 'vuedraggable'
 
 export default {
   components: {
@@ -191,6 +226,7 @@ export default {
     relatedProduct,
     items,
     productBox,
+    draggable
   },
   data() {
     return {
@@ -219,8 +255,7 @@ export default {
         blob_ids: []
       },
       editFlag: false,
-      items: [],
-      previewFlag: false,
+      overlay: false
     }
   },
   localStorage: {
@@ -253,6 +288,13 @@ export default {
     this.activeColor = this.uniqColor
     this.changeSizeVariant(this.getDetail.variants[0].size)
     this.fetchCoordinate()
+    this.$axios.get('/api/v1/coordinates/5b70e591d8ab6d611280c6fb01d15e12', {
+      params: { session_hash: this.$localStorage.get('session_hash') }
+    }).then(response => {
+      let session_hash = response.data.meta.session_hash
+      this.$localStorage.set('session_hash', session_hash)
+      console.log(response.data)
+    })
   },
   methods: {
     priceCurrency: function () {
@@ -316,71 +358,78 @@ export default {
       if (this.editFlag) { this.$refs['file-input'].click() }
     },
     fetchCoordinate() {
-      axios.get('/api/v1/coordinates/' + this.$route.params.id).then(response => {
-        this.coordinate = response.data
-        this.fetchItems()
-      });
+      this.$axios.get('/api/v1/coordinates/' + this.$route.params.id + '/edit')
+        .then(response => {
+          this.coordinate = response.data.coordinate
+          this.fetchItems()
+        });
     },
-    fetchItems(item_code) {
-      this.items = []
+    fetchItems() {
       this.coordinate.parts.forEach(part => {
-        axios.get('/api/v1/items/' + part.item_code).then(response => {
-          this.items.push(response.data)
-        })
+        this.$axios.get('/api/v1/items/' + part.item_code).then(response => {
+          part.params = response.data.params
+        });
       })
     },
     changeItem(index, item_code) {
       this.coordinate.parts[index].item_code = item_code
 
-      axios.get('/api/v1/items/' + item_code).then(response => {
-        this.items.splice(index, 1, response.data)
+      this.$axios.get('/api/v1/items/' + item_code).then(response => {
+        this.coordinate.parts[index].params = response.data.params
+      })
+    },
+    addItem(item_code) {
+      this.$axios.get('/api/v1/items/' + item_code).then(response => {
+        this.coordinate.parts.push(
+          {
+            item_code: item_code,
+            params: response.data.params
+          }
+        )
       })
     },
     async updateCoordinate() {
+      this.overlay = true
       try {
-        await this.$axios.$patch('/api/v1/coordinates/' + this.coordinate.id, this.coordinate)
+        await this.$axios.patch('/api/v1/coordinates/' + this.coordinate.id, this.coordinate)
         this.$localStorage.remove('coordinate')
-        this.$localStorage.remove('items')
         this.editFlag = false
+        this.overlay = false
       } catch (error) {
+        this.overlay = false
         console.log(error)
       }
     },
     editCoordinate() {
       this.$localStorage.set('coordinate', this.coordinate)
-      if (this.items.length === this.coordinate.parts.length) {
-        this.$localStorage.set('items', this.items)
-      }
       this.editFlag = true
     },
     cancelEdit() {
       this.coordinate = this.$localStorage.get('coordinate')
-      this.items = this.$localStorage.get('items')
       this.$localStorage.remove('coordinate')
-      this.$localStorage.remove('items')
       this.editFlag = false
     },
-    onChangeFiles (event) {
+    onChangeFiles(event) {
       let input = this.$refs['file-input']
       this.uploadFiles(input.files)
       input.value = null
     },
-    uploadFiles (files) {
+    uploadFiles(files) {
       this.coordinate.images = []
       this.coordinate.blob_ids = []
       Array.from(files).forEach(file => this.uploadFile(file))
     },
-    uploadFile (file) {
+    uploadFile(file) {
       const url = 'http://localhost:3000/rails/active_storage/direct_uploads'
       const directUploader = new DirectUploader(file, url, this._onUploadProgress.bind(this))
       directUploader.upload(this._onUploadError.bind(this), this._onUploadSuccess.bind(this))
     },
-    _onUploadError (error, directUploader) {
+    _onUploadError(error, directUploader) {
       this.coordinate.images = []
       this.coordinate.blob_ids = []
       console.log(error)
     },
-    _onUploadSuccess (blob, directUploader) {
+    _onUploadSuccess(blob, directUploader) {
       const endpoint = 'http://localhost:3000/rails/active_storage/blobs/redirect/'
       let signed_id = blob.signed_id
       let filename = blob.filename
@@ -388,7 +437,10 @@ export default {
       this.coordinate.images.push(image_url)
       this.coordinate.blob_ids.push(blob.id)
     },
-    _onUploadProgress (event, directUploader) {
+    _onUploadProgress(event, directUploader) {
+    },
+    draggableEnd(event) {
+      this.coordinate.parts.forEach((part, index) => part.sort = index)
     },
   }
 }
@@ -402,5 +454,9 @@ export default {
 
   .product-wrapper-grid.list-view .product-box .product-detail h6 {
     width: 90%;
+  }
+
+  .product-box {
+    margin-top: 10px;
   }
 </style>

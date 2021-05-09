@@ -15,7 +15,7 @@
         <div class="col-lg-6 text-right">
           <ul class="header-dropdown">
             <li class="mobile-wishlist">
-              <nuxt-link :to="{ path: '/page/account/wishlist' }">
+              <nuxt-link :to="{ path: '/account/coordinates' }">
                 <i class="fa fa-heart" aria-hidden="true"></i>
               </nuxt-link>
             </li>
@@ -24,10 +24,10 @@
               <ul class="onhover-show-div">
                 <li>
                   <a v-if="isLogin" @click="logout"> Logout </a>
-                  <nuxt-link v-if="!isLogin" :to="{ path: '/page/account/login' }">Login</nuxt-link>
+                  <nuxt-link v-if="!isLogin" :to="{ path: '/account/login' }">Login</nuxt-link>
                 </li>
                 <li>
-                  <nuxt-link :to="{ path: '/page/account/dashboard' }">Dashboard</nuxt-link>
+                  <nuxt-link :to="{ path: '/account/dashboard' }">Dashboard</nuxt-link>
                 </li>
               </ul>
             </li>
@@ -54,6 +54,7 @@ export default {
   },
   methods: {
     logout: function () {
+      this.$localStorage.remove('headers')
       this.$auth.logout()
     }
   }

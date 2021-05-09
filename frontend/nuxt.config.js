@@ -77,7 +77,7 @@ export default {
       login: '/account/login',
       logout: '/',
       callback: false,
-      home: '/account/dashboard',
+      home: '/account/coordinates',
     },
     strategies: {
       local: {

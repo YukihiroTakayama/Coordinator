@@ -5,7 +5,9 @@ class ItemsController < ApplicationController
   end
 
   def show
-    item = RakutenWebService::Ichiba::Item.search(item_code: params[:code]).first
+    item = Rails.cache.fetch("/api/v1/items/#{params[:code]}", expired_in: 1.hour) do
+      RakutenWebService::Ichiba::Item.search(item_code: params[:code]).first
+    end
     render json: item
   end
 

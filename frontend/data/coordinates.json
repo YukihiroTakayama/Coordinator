@@ -1,0 +1,412 @@
+{
+    "data": [
+        {
+            "id": 1,
+            "title": "trim dress",
+            "caption": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters,It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters.",
+            "type": "fashion",
+            "brand": "nike",
+            "collection": ["new products"],
+            "category": "Women",
+            "price": 145,
+            "sale": true,
+            "discount": "40",
+            "stock": 5,
+            "new": true,
+            "parts": [
+                {
+                    "id": 1,
+                    "item_code": "fleaboardshop:10030465",
+                    "params": { "mediumImageUrls": [] }
+                }
+            ],
+            "variants": [
+                {
+                    "variant_id": 101,
+                    "id": 1,
+                    "sku": "sku1",
+                    "size": "s",
+                    "color": "yellow",
+                    "image_id": 111
+                },
+                {
+                    "variant_id": 102,
+                    "id": 1,
+                    "sku": "sku2",
+                    "size": "s",
+                    "color": "white",
+                    "image_id": 112
+                },
+                {
+                    "variant_id": 103,
+                    "id": 1,
+                    "sku": "sku3",
+                    "size": "s",
+                    "color": "pink",
+                    "image_id": 113
+                },
+                {
+                    "variant_id": 104,
+                    "id": 1,
+                    "sku": "sku4",
+                    "size": "m",
+                    "color": "yellow",
+                    "image_id": 111
+                },
+                {
+                    "variant_id": 105,
+                    "id": 1,
+                    "sku": "sku5",
+                    "size": "m",
+                    "color": "white",
+                    "image_id": 112
+                },
+                {
+                    "variant_id": 106,
+                    "id": 1,
+                    "sku": "sku5",
+                    "size": "m",
+                    "color": "pink",
+                    "image_id": 113
+                },
+                {
+                    "variant_id": 107,
+                    "id": 1,
+                    "sku": "sku1",
+                    "size": "l",
+                    "color": "yellow",
+                    "image_id": 111
+                }
+            ],
+            "images": [
+                {
+                    "image_id": 111,
+                    "id": 1,
+                    "alt": "yellow",
+                    "src": "1.jpg",
+                    "variant_id": [
+                        101,
+                        104
+                    ]
+                },
+                {
+                    "image_id": 112,
+                    "id": 1,
+                    "alt": "white",
+                    "src": "1.jpg",
+                    "variant_id": [
+                        102,
+                        105
+                    ]
+                },
+                {
+                    "image_id": 113,
+                    "id": 1,
+                    "alt": "pink",
+                    "src": "1.jpg",
+                    "variant_id": [
+                        103,
+                        106
+                    ]
+                }
+            ]
+        },
+        {
+            "id": 2,
+            "title": "belted dress",
+            "caption": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters,It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters.",
+            "type": "fashion",
+            "brand": "zara",
+            "collection": ["best sellers"],
+            "category": "Women",
+            "price": 185,
+            "sale": false,
+            "discount": "40",
+            "stock": 2,
+            "new": false,
+            "parts": [
+                {
+                    "id": 1,
+                    "item_code": "fleaboardshop:10030465",
+                    "params": { "mediumImageUrls": [] }
+                }
+            ],
+            "images": [
+                {
+                    "image_id": 211,
+                    "id": 2,
+                    "alt": "olive",
+                    "src": "1.jpg",
+                    "variant_id": [
+                        201,
+                        204,
+                        207
+                    ]
+                },
+                {
+                    "image_id": 212,
+                    "id": 2,
+                    "alt": "navy",
+                    "src": "1.jpg",
+                    "variant_id": [
+                        202,
+                        205,
+                        208
+                    ]
+                },
+                {
+                    "image_id": 213,
+                    "id": 2,
+                    "alt": "pink",
+                    "src": "1.jpg",
+                    "variant_id": [
+                        203,
+                        206,
+                        209
+                    ]
+                },
+                {
+                    "image_id": 214,
+                    "id": 2,
+                    "alt": "pink",
+                    "src": "1.jpg",
+                    "variant_id": [
+                        201,
+                        204
+                    ]
+                }
+            ]
+        },
+        {
+            "id": 3,
+            "title": "fitted dress",
+            "caption": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters,It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters.",
+            "type": "fashion",
+            "brand": "denim",
+            "collection": ["featured products"],
+            "category": "Women",
+            "price": 174,
+            "sale": false,
+            "discount": "40",
+            "stock": 0,
+            "new": true,
+            "parts": [
+                {
+                    "id": 1,
+                    "item_code": "fleaboardshop:10030465",
+                    "params": { "mediumImageUrls": [] }
+                }
+            ],
+            "variants": [
+                {
+                    "variant_id": 301,
+                    "id": 3,
+                    "sku": "sku3",
+                    "size": "l",
+                    "color": "white",
+                    "image_id": 311
+                },
+                {
+                    "variant_id": 302,
+                    "id": 3,
+                    "sku": "skul3",
+                    "size": "m",
+                    "color": "white",
+                    "image_id": 311
+                },
+                {
+                    "variant_id": 303,
+                    "id": 3,
+                    "sku": "sku3l",
+                    "size": "l",
+                    "color": "black",
+                    "image_id": 312
+                },
+                {
+                    "variant_id": 304,
+                    "id": 3,
+                    "sku": "sku4m",
+                    "size": "m",
+                    "color": "black",
+                    "image_id": 312
+                }
+            ],
+            "images": [
+                {
+                    "image_id": 311,
+                    "id": 3,
+                    "alt": "white",
+                    "src": "1.jpg",
+                    "variant_id": [
+                        301,
+                        303
+                    ]
+                },
+                {
+                    "image_id": 312,
+                    "id": 1,
+                    "alt": "white",
+                    "src": "1.jpg",
+                    "variant_id": [
+                        302,
+                        304
+                    ]
+                }
+            ]
+        },
+        {
+            "id": 4,
+            "title": "belted top",
+            "caption": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters,It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters.",
+            "type": "fashion",
+            "brand": "madame",
+            "collection": ["new products", "on sale"],
+            "category": "Women",
+            "price": 98,
+            "sale": false,
+            "discount": "50",
+            "stock": 10,
+            "new": true,
+            "parts": [
+                {
+                    "id": 1,
+                    "item_code": "fleaboardshop:10030465",
+                    "params": { "mediumImageUrls": [] }
+                }
+            ],
+            "variants": [
+                {
+                    "variant_id": 401,
+                    "id": 4,
+                    "sku": "sku4",
+                    "size": "s",
+                    "color": "white",
+                    "image_id": 411
+                },
+                {
+                    "variant_id": 402,
+                    "id": 4,
+                    "sku": "skul4",
+                    "size": "l",
+                    "color": "white",
+                    "image_id": 411
+                },
+                {
+                    "variant_id": 403,
+                    "id": 4,
+                    "sku": "sku4s",
+                    "size": "s",
+                    "color": "skyblue",
+                    "image_id": 412
+                },
+                {
+                    "variant_id": 404,
+                    "id": 4,
+                    "sku": "sku4l",
+                    "size": "l",
+                    "color": "skyblue",
+                    "image_id": 412
+                }
+            ],
+            "images": [
+                {
+                    "image_id": 411,
+                    "id": 4,
+                    "alt": "white",
+                    "src": "1.jpg",
+                    "variant_id": [
+                        401,
+                        402
+                    ]
+                },
+                {
+                    "image_id": 412,
+                    "id": 4,
+                    "alt": "skyblue",
+                    "src": "1.jpg",
+                    "variant_id": [
+                        403,
+                        404
+                    ]
+                }
+            ]
+        },
+        {
+            "id": 5,
+            "title": "waist dress",
+            "caption": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters,It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters.",
+            "type": "fashion",
+            "brand": "biba",
+            "collection": ["featured products"],
+            "category": "Women",
+            "price": 230,
+            "sale": true,
+            "discount": "20",
+            "stock": 4,
+            "new": true,
+            "parts": [
+                {
+                    "id": 1,
+                    "item_code": "fleaboardshop:10030465",
+                    "params": { "mediumImageUrls": [] }
+                }
+            ],
+            "variants": [
+                {
+                    "variant_id": 501,
+                    "id": 5,
+                    "sku": "sku5",
+                    "size": "m",
+                    "color": "green",
+                    "image_id": 511
+                },
+                {
+                    "variant_id": 502,
+                    "id": 5,
+                    "sku": "skul5",
+                    "size": "l",
+                    "color": "green",
+                    "image_id": 511
+                },
+                {
+                    "variant_id": 503,
+                    "id": 5,
+                    "sku": "sku5s",
+                    "size": "m",
+                    "color": "black",
+                    "image_id": 512
+                },
+                {
+                    "variant_id": 504,
+                    "id": 5,
+                    "sku": "sku5l",
+                    "size": "l",
+                    "color": "black",
+                    "image_id": 512
+                }
+            ],
+            "images": [
+                {
+                    "image_id": 511,
+                    "id": 5,
+                    "alt": "green",
+                    "src": "1.jpg",
+                    "variant_id": [
+                        501,
+                        503
+                    ]
+                },
+                {
+                    "image_id": 512,
+                    "id": 5,
+                    "alt": "black",
+                    "src": "1.jpg",
+                    "variant_id": [
+                        502,
+                        504
+                    ]
+                }
+            ]
+        }
+    ]
+}

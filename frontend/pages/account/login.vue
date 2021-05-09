@@ -52,7 +52,7 @@
               <h6 class="title-font">Create A Account</h6>
               <p>Sign up for a free account at our store. Registration is quick and easy. It allows you to be able to order from our shop. To start shopping click register.</p>
               <nuxt-link
-                  :to="{ path: '/page/account/register'}"
+                  :to="{ path: '/account/register'}"
                   class="btn btn-solid"
                 >Create an Account</nuxt-link>
             </div>
@@ -100,10 +100,10 @@ export default {
             localStorage.setItem('client', response.headers.client)
             localStorage.setItem('uid', response.headers.uid)
             localStorage.setItem('token-type', response.headers['token-type'])
-            return response
+            this.$localStorage.set('headers', response.headers)
           },
           (error) => {
-            return error
+            console.log(error)
           }
         )
     },

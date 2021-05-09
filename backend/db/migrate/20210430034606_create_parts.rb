@@ -4,6 +4,9 @@ class CreateParts < ActiveRecord::Migration[6.1]
       t.integer :place
       t.string  :item_code
       t.integer :coordinate_id
+      t.integer :sort
+      t.boolean :is_deleted, default: false
+      t.string  :token, default: ''
 
       t.timestamps
     end
