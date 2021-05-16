@@ -43,6 +43,9 @@ class DeviseTokenAuthCreateUsers < ActiveRecord::Migration[6.1]
       ## Tokens
       t.text :tokens
 
+      ## Stripe
+      t.string :stripe_id
+
       t.timestamps
     end
 

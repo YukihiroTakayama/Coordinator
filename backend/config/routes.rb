@@ -11,6 +11,10 @@ Rails.application.routes.draw do
         end
       end
       resources :parts, param: :token
+
+      namespace :stripe do
+        resources :accounts
+      end
     end
   end
 end

@@ -288,12 +288,6 @@ export default {
     this.activeColor = this.uniqColor
     this.changeSizeVariant(this.getDetail.variants[0].size)
     this.fetchCoordinate()
-    // this.$axios.get('/api/v1/coordinates/5b70e591d8ab6d611280c6fb01d15e12', {
-    //   params: { session_hash: this.$localStorage.get('session_hash') }
-    // }).then(response => {
-    //   let session_hash = response.data.meta.session_hash
-    //   this.$localStorage.set('session_hash', session_hash)
-    // })
   },
   methods: {
     priceCurrency: function () {

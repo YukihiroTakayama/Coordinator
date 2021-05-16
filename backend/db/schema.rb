@@ -111,6 +111,7 @@ ActiveRecord::Schema.define(version: 2021_05_08_143103) do
     t.string "image"
     t.string "email"
     t.text "tokens"
+    t.string "stripe_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true

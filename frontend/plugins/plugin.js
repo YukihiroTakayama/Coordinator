@@ -29,3 +29,18 @@ const config = {
   messagingSenderId: 'YOUR_MESSAGING_SENDER_ID'
 }
 firebase.initializeApp(config)
+
+export default function ({ $axios }) {
+  $axios.onRequest(config => {
+    const headers = JSON.parse(localStorage.getItem('headers')) || {}
+
+    config.headers.common.uid = headers['uid']
+    config.headers.common['access-token'] = headers['access-token']
+    config.headers.common.client = headers['client']
+    config.headers.common['token-type'] = headers['token-type']
+  })
+
+  $axios.onError(error => {
+    error
+  })
+}
