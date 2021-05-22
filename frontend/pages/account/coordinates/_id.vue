@@ -369,10 +369,13 @@ export default {
 
       this.$axios.get('/api/v1/items/' + item_code).then(response => {
         this.coordinate.parts[index].params = response.data.params
+        let rewardAmount = this.calculationRewardAmount(response.data)
+        this.coordinate.parts[index].reward_amount = rewardAmount
       })
     },
     addItem(item_code) {
       this.$axios.get('/api/v1/items/' + item_code).then(response => {
+
         this.coordinate.parts.push(
           {
             item_code: item_code,
@@ -435,6 +438,11 @@ export default {
     draggableEnd(event) {
       this.coordinate.parts.forEach((part, index) => part.sort = index)
     },
+    calculationRewardAmount(item) {
+      let itemPrice = item.params.itemPrice
+      let affiliateRate = item.params.affiliateRate
+      return (itemPrice * affiliateRate * 0.01) / 50
+    }
   }
 }
 </script>

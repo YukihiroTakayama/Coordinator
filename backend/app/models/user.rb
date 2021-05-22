@@ -8,4 +8,11 @@ class User < ActiveRecord::Base
   include DeviseTokenAuth::Concerns::User
 
   has_many :coordinates
+  has_one :reward
+  has_many :payments
+
+  after_create do
+    Reward.create(user_id: id)
+    Payment.create(user_id: id)
+  end
 end

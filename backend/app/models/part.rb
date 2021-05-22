@@ -2,6 +2,7 @@ class Part < ApplicationRecord
   is_impressionable
 
   belongs_to :coordinate
+
   default_scope { where(is_deleted: false).order(:sort) }
 
   before_create do

@@ -15,6 +15,7 @@ Rails.application.routes.draw do
       namespace :stripe do
         resources :accounts
       end
+      resources :payments
     end
   end
 end

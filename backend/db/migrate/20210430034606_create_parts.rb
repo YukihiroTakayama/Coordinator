@@ -7,6 +7,7 @@ class CreateParts < ActiveRecord::Migration[6.1]
       t.integer :sort
       t.boolean :is_deleted, default: false
       t.string  :token, default: ''
+      t.float   :reward_amount, default: 0.0
 
       t.timestamps
     end

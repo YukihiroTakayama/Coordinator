@@ -12,7 +12,7 @@ class CoordinatesController < ApplicationController
   end
 
   def show
-    coordinate = Coordinate.find_by(token: params[:token])
+    coordinate = Coordinate.find_by!(token: params[:token])
     impressionist coordinate
     render json: coordinate, include: [:parts], meta: { session_hash: session_hash }
   end
@@ -43,6 +43,6 @@ class CoordinatesController < ApplicationController
   end
 
   def parts_attributes_params
-    params.permit(parts: [:id, :item_code, :is_deleted, :sort])[:parts]
+    params.permit(parts: [:id, :item_code, :is_deleted, :sort, :reward_amount])[:parts]
   end
 end
